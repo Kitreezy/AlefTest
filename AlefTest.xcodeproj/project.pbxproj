@@ -7,18 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		576F65B22D673F780037EDB7 /* CustomInfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576F65B12D673F780037EDB7 /* CustomInfoTextField.swift */; };
+		576F65B42D673F930037EDB7 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576F65B32D673F930037EDB7 /* SectionHeaderView.swift */; };
+		576F65B62D673FA90037EDB7 /* PersonalInfoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576F65B52D673FA90037EDB7 /* PersonalInfoCellView.swift */; };
 		57EC42E62D6476F1000809B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EC42E52D6476F1000809B3 /* AppDelegate.swift */; };
 		57EC42E82D6476F1000809B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EC42E72D6476F1000809B3 /* SceneDelegate.swift */; };
-		57EC42EA2D6476F1000809B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EC42E92D6476F1000809B3 /* ViewController.swift */; };
+		57EC42EA2D6476F1000809B3 /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EC42E92D6476F1000809B3 /* PersonalInfoViewController.swift */; };
 		57EC42EF2D6476F3000809B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57EC42EE2D6476F3000809B3 /* Assets.xcassets */; };
 		57EC42F22D6476F3000809B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57EC42F02D6476F3000809B3 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		576F65B12D673F780037EDB7 /* CustomInfoTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoTextField.swift; sourceTree = "<group>"; };
+		576F65B32D673F930037EDB7 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		576F65B52D673FA90037EDB7 /* PersonalInfoCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoCellView.swift; sourceTree = "<group>"; };
 		57EC42E22D6476F1000809B3 /* AlefTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlefTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EC42E52D6476F1000809B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57EC42E72D6476F1000809B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		57EC42E92D6476F1000809B3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		57EC42E92D6476F1000809B3 /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
 		57EC42EE2D6476F3000809B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57EC42F12D6476F3000809B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		57EC42F32D6476F3000809B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,6 +41,75 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		576F65A92D673E850037EDB7 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				57EC42EE2D6476F3000809B3 /* Assets.xcassets */,
+				57EC42F02D6476F3000809B3 /* LaunchScreen.storyboard */,
+				57EC42F32D6476F3000809B3 /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		576F65AA2D673E920037EDB7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		576F65AB2D673E980037EDB7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				576F65AC2D673EC20037EDB7 /* PersonalInfoView */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		576F65AC2D673EC20037EDB7 /* PersonalInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				576F65AE2D673F340037EDB7 /* Views */,
+				57EC42E92D6476F1000809B3 /* PersonalInfoViewController.swift */,
+			);
+			path = PersonalInfoView;
+			sourceTree = "<group>";
+		};
+		576F65AD2D673EDF0037EDB7 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				57EC42E52D6476F1000809B3 /* AppDelegate.swift */,
+				57EC42E72D6476F1000809B3 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		576F65AE2D673F340037EDB7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				576F65B02D673F420037EDB7 /* TextField */,
+				576F65AF2D673F3B0037EDB7 /* TableView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		576F65AF2D673F3B0037EDB7 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				576F65B32D673F930037EDB7 /* SectionHeaderView.swift */,
+				576F65B52D673FA90037EDB7 /* PersonalInfoCellView.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		576F65B02D673F420037EDB7 /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				576F65B12D673F780037EDB7 /* CustomInfoTextField.swift */,
+			);
+			path = TextField;
+			sourceTree = "<group>";
+		};
 		57EC42D92D6476F0000809B3 = {
 			isa = PBXGroup;
 			children = (
@@ -54,12 +129,10 @@
 		57EC42E42D6476F1000809B3 /* AlefTest */ = {
 			isa = PBXGroup;
 			children = (
-				57EC42E52D6476F1000809B3 /* AppDelegate.swift */,
-				57EC42E72D6476F1000809B3 /* SceneDelegate.swift */,
-				57EC42E92D6476F1000809B3 /* ViewController.swift */,
-				57EC42EE2D6476F3000809B3 /* Assets.xcassets */,
-				57EC42F02D6476F3000809B3 /* LaunchScreen.storyboard */,
-				57EC42F32D6476F3000809B3 /* Info.plist */,
+				576F65AD2D673EDF0037EDB7 /* Application */,
+				576F65AB2D673E980037EDB7 /* Controllers */,
+				576F65AA2D673E920037EDB7 /* Helpers */,
+				576F65A92D673E850037EDB7 /* SupportingFiles */,
 			);
 			path = AlefTest;
 			sourceTree = "<group>";
@@ -134,7 +207,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57EC42EA2D6476F1000809B3 /* ViewController.swift in Sources */,
+				576F65B62D673FA90037EDB7 /* PersonalInfoCellView.swift in Sources */,
+				576F65B22D673F780037EDB7 /* CustomInfoTextField.swift in Sources */,
+				57EC42EA2D6476F1000809B3 /* PersonalInfoViewController.swift in Sources */,
+				576F65B42D673F930037EDB7 /* SectionHeaderView.swift in Sources */,
 				57EC42E62D6476F1000809B3 /* AppDelegate.swift in Sources */,
 				57EC42E82D6476F1000809B3 /* SceneDelegate.swift in Sources */,
 			);
@@ -282,7 +358,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LJZ97X76W9;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AlefTest/Info.plist;
+				INFOPLIST_FILE = AlefTest/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -311,7 +387,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LJZ97X76W9;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AlefTest/Info.plist;
+				INFOPLIST_FILE = AlefTest/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
