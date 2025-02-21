@@ -10,6 +10,9 @@
 		576F65B22D673F780037EDB7 /* CustomInfoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576F65B12D673F780037EDB7 /* CustomInfoTextField.swift */; };
 		576F65B42D673F930037EDB7 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576F65B32D673F930037EDB7 /* SectionHeaderView.swift */; };
 		576F65B62D673FA90037EDB7 /* PersonalInfoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576F65B52D673FA90037EDB7 /* PersonalInfoCellView.swift */; };
+		576F65B82D6756590037EDB7 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576F65B72D6756590037EDB7 /* R.generated.swift */; };
+		576F65BA2D675AFA0037EDB7 /* ChildInfoCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576F65B92D675AFA0037EDB7 /* ChildInfoCellView.swift */; };
+		576F65BC2D6773850037EDB7 /* UIView + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576F65BB2D6773850037EDB7 /* UIView + ext.swift */; };
 		57EC42E62D6476F1000809B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EC42E52D6476F1000809B3 /* AppDelegate.swift */; };
 		57EC42E82D6476F1000809B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EC42E72D6476F1000809B3 /* SceneDelegate.swift */; };
 		57EC42EA2D6476F1000809B3 /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EC42E92D6476F1000809B3 /* PersonalInfoViewController.swift */; };
@@ -21,6 +24,9 @@
 		576F65B12D673F780037EDB7 /* CustomInfoTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoTextField.swift; sourceTree = "<group>"; };
 		576F65B32D673F930037EDB7 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		576F65B52D673FA90037EDB7 /* PersonalInfoCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoCellView.swift; sourceTree = "<group>"; };
+		576F65B72D6756590037EDB7 /* R.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		576F65B92D675AFA0037EDB7 /* ChildInfoCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildInfoCellView.swift; sourceTree = "<group>"; };
+		576F65BB2D6773850037EDB7 /* UIView + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + ext.swift"; sourceTree = "<group>"; };
 		57EC42E22D6476F1000809B3 /* AlefTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlefTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EC42E52D6476F1000809B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57EC42E72D6476F1000809B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +60,8 @@
 		576F65AA2D673E920037EDB7 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				576F65BD2D6773FD0037EDB7 /* Extensions */,
+				576F65B72D6756590037EDB7 /* R.generated.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -98,6 +106,7 @@
 			children = (
 				576F65B32D673F930037EDB7 /* SectionHeaderView.swift */,
 				576F65B52D673FA90037EDB7 /* PersonalInfoCellView.swift */,
+				576F65B92D675AFA0037EDB7 /* ChildInfoCellView.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -108,6 +117,14 @@
 				576F65B12D673F780037EDB7 /* CustomInfoTextField.swift */,
 			);
 			path = TextField;
+			sourceTree = "<group>";
+		};
+		576F65BD2D6773FD0037EDB7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				576F65BB2D6773850037EDB7 /* UIView + ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		57EC42D92D6476F0000809B3 = {
@@ -208,9 +225,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				576F65B62D673FA90037EDB7 /* PersonalInfoCellView.swift in Sources */,
+				576F65BC2D6773850037EDB7 /* UIView + ext.swift in Sources */,
+				576F65B82D6756590037EDB7 /* R.generated.swift in Sources */,
 				576F65B22D673F780037EDB7 /* CustomInfoTextField.swift in Sources */,
 				57EC42EA2D6476F1000809B3 /* PersonalInfoViewController.swift in Sources */,
 				576F65B42D673F930037EDB7 /* SectionHeaderView.swift in Sources */,
+				576F65BA2D675AFA0037EDB7 /* ChildInfoCellView.swift in Sources */,
 				57EC42E62D6476F1000809B3 /* AppDelegate.swift in Sources */,
 				57EC42E82D6476F1000809B3 /* SceneDelegate.swift in Sources */,
 			);
