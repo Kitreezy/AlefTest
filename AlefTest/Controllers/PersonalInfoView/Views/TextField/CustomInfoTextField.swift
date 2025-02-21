@@ -7,18 +7,25 @@
 
 import UIKit
 
-class CustomInfoTextField: UITextField {
+enum InputType {
+    case text
+    case number
+}
+
+final class CustomInfoTextField: UITextField, UITextFieldDelegate {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13, weight: .regular)
-        label.textColor = .black
-        label.alpha = 0.5
+        label.textColor = .lightGray
+//        label.alpha = 0.5
         
         return label
     }()
     
     private let textPadding = UIEdgeInsets(top: 20, left: 15, bottom: 5, right: 15)
+    
+    var inputType: InputType = .text
     
     var customPlaceholder: String? {
         didSet {
@@ -45,6 +52,7 @@ class CustomInfoTextField: UITextField {
         
     private func setup() {
         font = .systemFont(ofSize: 15, weight: .regular)
+        addTarget(self, action: #selector(textChanged), for: .editingChanged)
     }
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
@@ -55,6 +63,17 @@ class CustomInfoTextField: UITextField {
         return bounds.inset(by: textPadding)
     }
     
+    @objc
+    private func textChanged() {
+        guard let text = self.text else { return }
+        
+        switch inputType {
+        case .text:
+            self.text = text.filter { $0.isLetter || $0.isWhitespace }
+        case .number:
+            self.text = text.filter { $0.isNumber }
+        }
+    }
 }
 
 
@@ -76,5 +95,6 @@ extension CustomInfoTextField {
     
     func configureAppearance() {
         borderStyle = .roundedRect
+        delegate = self
     }
 }
