@@ -9,8 +9,6 @@ import UIKit
 
 final class PersonalInfoViewController: UIViewController {
     
-    private var childData: [Child] = []
-    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.estimatedRowHeight = 100
@@ -20,9 +18,12 @@ final class PersonalInfoViewController: UIViewController {
         return tableView
     }()
     
+    private var presenter: PersonalInfoPresenter!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter = PersonalInfoPresenterImp(view: self)
         setupTableView()
         setupViews()
         layoutConstraints()
@@ -41,7 +42,7 @@ final class PersonalInfoViewController: UIViewController {
 extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        2
+        presenter.numberOfSections()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,10 +50,10 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
         case 0:
             return 1
         case 1:
-            return childData.count
+            return presenter.childCount
             
         default:
-            return 0
+            return 1
         }
     }
     
@@ -68,15 +69,23 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
             let cell = tableView.dequeueReusableCell(withIdentifier: ChildInfoCellView.identifier,
                                                      for: indexPath) as! ChildInfoCellView
             
-            let child = childData[indexPath.row]
+            let child = presenter.child(at: indexPath.row)
             cell.configure(with: child)
+
+            cell.onNameChanged = { [weak self] newName in
+                self?.presenter.updateChildName(at: indexPath.row, name: newName)
+            }
+
+            cell.onAgeChanged = { [weak self] newAge in
+                self?.presenter.updateChildAge(at: indexPath.row, age: newAge)
+            }
             
             cell.deleteAction = { [weak self, weak tableView] in
                 guard let self = self, let tableView = tableView else { return }
                   
                 if let indexPath = tableView.indexPath(for: cell) {
-                    self.removeChild(at: indexPath.row)
-                    print("Удален \(indexPath.row)")
+                    self.presenter.removeChild(at: indexPath.row)
+                    print("Удален \(indexPath.row) ребенок")
                 }
             }
             
@@ -100,11 +109,11 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
                 showButton: true,
                 addAction: { [weak self] in
                     guard let self = self else { return }
-                    addChild()
+                    self.presenter.addChild()
                 }
             )
             return header
-        
+            
         default:
             return SectionHeaderView(text: "", showButton: false)
         }
@@ -130,65 +139,41 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard section == 1, !childData.isEmpty else { return nil }
+        guard section == 1, presenter.childCount > 0 else { return nil }
 
         let footerView = SectionFooterView(
             clearAction: { [weak self] in
-                self?.showActionSheet()
+                self?.presenter.showClearActionSheet()
             }
         )
         return footerView
     }
     
-    private func addChild() {
-        print("Добавлен \(childData.count) детей")
-        if self.childData.count < 5 {
-            let newChild = Child(name: "")
-            self.childData.append(newChild)
-             
-            tableView.beginUpdates()
-            tableView.insertRows(at: [IndexPath(row: childData.count - 1, section: 1)], with: .automatic)
-            tableView.endUpdates()
-        } else {
-            print("Детей максимальное количество")
+    func reloadTable() {
+        tableView.reloadSections([1], with: .automatic)
+    }
+    
+    func deleteRow(at index: Int) {
+        let indexPath = IndexPath(row: index, section: 1)
+
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        tableView.endUpdates()
+
+        UIView.animate(withDuration: 0.3) {
+            self.tableView.layoutIfNeeded()
         }
     }
     
-    private func removeChild(at index: Int) {
-        guard index >= 0 && index < childData.count else { return }
-
-        childData.remove(at: index)
-
-        if childData.isEmpty {
-            tableView.reloadSections([1], with: .automatic)  // Обновляем footer
-        } else {
-            tableView.beginUpdates()
-            tableView.deleteRows(at: [IndexPath(row: index, section: 1)], with: .automatic)
-            tableView.endUpdates()
+    func updateFooterVisibility(isHidden: Bool) {
+        guard let footerView = tableView.footerView(forSection: 1) else { return }
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
+            footerView.alpha = isHidden ? 0 : 1
+            footerView.frame.origin.y = self.tableView.contentSize.height - footerView.frame.height
+        }) { _ in
+            footerView.isHidden = isHidden
         }
-    }
-    
-    @objc
-    private func showActionSheet() {
-        guard let viewController = self.view.parentViewController else { return }
-
-        let actionSheet = UIAlertController(
-            title: "Очистить данные",
-            message: "Вы уверены, что хотите удалить все записи",
-            preferredStyle: .actionSheet
-        )
-
-        let clearAction = UIAlertAction(title: "Сбросить данные", style: .destructive) { _ in
-            self.childData.removeAll()
-            self.tableView.reloadSections([1], with: .automatic)
-        }
-
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
-
-        actionSheet.addAction(clearAction)
-        actionSheet.addAction(cancelAction)
-
-        viewController.present(actionSheet, animated: true)
     }
 }
 

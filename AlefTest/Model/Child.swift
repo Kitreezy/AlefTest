@@ -8,6 +8,7 @@
 import Foundation
 
 struct Child {
+    let id: UUID
     var name: String
     var age: Int?
 }
