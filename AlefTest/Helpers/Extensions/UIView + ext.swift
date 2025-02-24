@@ -13,17 +13,5 @@ extension UIView {
         for view in views {
             addSubview(view)
         }
-    }
-    
-    var parentViewController: UIViewController? {
-        var parentResponder: UIResponder? = self
-        while let nextResponder = parentResponder?.next {
-            if let viewController = nextResponder as? UIViewController {
-                return viewController
-            }
-            parentResponder = nextResponder
-        }
-        return nil
-    }
-    
+    } 
 }

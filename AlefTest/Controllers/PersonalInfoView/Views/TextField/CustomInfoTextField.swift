@@ -18,7 +18,6 @@ final class CustomInfoTextField: UITextField, UITextFieldDelegate {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13, weight: .regular)
         label.textColor = .lightGray
-//        label.alpha = 0.5
         
         return label
     }()

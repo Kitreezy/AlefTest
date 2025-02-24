@@ -51,7 +51,6 @@ final class SectionHeaderView: UIView {
     }
     
     @objc private func addTapped() {
-        print("Кнопка в SectionHeaderView нажата") 
         addAction?()
     }
 }

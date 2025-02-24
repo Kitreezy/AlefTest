@@ -29,7 +29,6 @@ final class SectionFooterView: UIView {
         
     @objc 
     private func clearTapped() {
-        print("Нажата кнопка в секции footer")
         clearAction?()
     }
 }
@@ -53,7 +52,6 @@ extension SectionFooterView {
         ])
         
         clearButton.layoutIfNeeded()
-        print("Констрейнты кнопки применены")
     }
     
     private func configureAppearance() {
