@@ -17,8 +17,8 @@ final class ChildInfoCellView: UITableViewCell {
     private let deleteButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(R.string.cell.deleteButton, for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.alpha = 0.8
+        button.setTitleColor(R.color.deleteButton, for: .normal)
+//        button.alpha = 0.5
         
         return button
     }()
@@ -54,9 +54,20 @@ final class ChildInfoCellView: UITableViewCell {
         ageTextField.inputType = .number
 
         deleteButton.addTarget(self, action: #selector(deleteTapped), for: .touchUpInside)
-   }
+        ageTextField.addTarget(self, action: #selector(ageTextFieldTapped), for: .touchUpInside)
+    }
+    
+    func configure(with child: Child) {
+        nameTextField.text = child.name
+        ageTextField.text = String(child.age ?? 0)
+    }
+    
+    @objc private func ageTextFieldTapped() {
+        
+    }
    
     @objc private func deleteTapped() {
+        print("Aboba")
         deleteAction?()
     }
 }
