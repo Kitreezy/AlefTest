@@ -60,7 +60,6 @@ extension CustomButtonView {
     func addChildSetup() {
         setTitle(R.string.cell.header.addButton, for: .normal)
         setTitleColor(R.color.addButton, for: .normal)
-//        titleLabel?.alpha = 0.5
         backgroundColor = .clear
         layer.borderColor = R.color.addButton.cgColor
         setImage(R.image.plus, for: .normal)
@@ -69,7 +68,7 @@ extension CustomButtonView {
 
     func clearSetup() {
         setTitle(R.string.cell.footer.clearButton, for: .normal)
-        setTitleColor(.systemRed, for: .normal)
+        setTitleColor(R.color.clearButton, for: .normal)
         backgroundColor = .clear
         layer.borderColor = R.color.clearButton.cgColor
     }

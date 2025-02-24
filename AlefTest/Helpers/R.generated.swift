@@ -30,6 +30,23 @@ enum R {
                 static var age = "Возраст"
             }
         }
+            
+        enum ActionSheet {
+            static func title(for text: ActionSheetTitle) -> String? {
+                switch text {
+                case .mainButtonTitle: return "Очистить"
+                case .clearAll: return "Сбросить данные"
+                case .cancel: return "Отмена"
+                }
+            }
+            static var messageText = "Вы уверены, что хотите удалить все данные?"
+        }
+        
+        enum AlertController {
+            static var mainTitle = "Достигнут лимит"
+            static var messageText = "Уже добавлено 5 детей."
+            static var buttonTitle = "ОК"
+        }
     }
     
     enum image {

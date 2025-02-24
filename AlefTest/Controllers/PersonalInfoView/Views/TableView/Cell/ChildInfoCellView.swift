@@ -21,7 +21,6 @@ final class ChildInfoCellView: UITableViewCell {
         let button = UIButton(type: .system)
         button.setTitle(R.string.cell.deleteButton, for: .normal)
         button.setTitleColor(R.color.deleteButton, for: .normal)
-//        button.alpha = 0.5
         
         return button
     }()
@@ -79,7 +78,6 @@ final class ChildInfoCellView: UITableViewCell {
     }
    
     @objc private func deleteTapped() {
-        print("Aboba")
         deleteAction?()
     }
 }

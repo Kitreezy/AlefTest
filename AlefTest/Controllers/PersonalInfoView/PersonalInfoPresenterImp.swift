@@ -7,6 +7,12 @@
 
 import UIKit
 
+enum ActionSheetTitle: Int, CaseIterable {
+    case mainButtonTitle
+    case clearAll
+    case cancel
+}
+
 final class PersonalInfoPresenterImp: PersonalInfoPresenter {
     
     private weak var view: PersonalInfoViewController?
@@ -30,11 +36,11 @@ final class PersonalInfoPresenterImp: PersonalInfoPresenter {
     
     func addChild() {
         guard childData.count < 5 else {
-            print("Детей максимальное количество")
+            alertAddedMaxChild()
             return
         }
         
-        let newChild = Child(id: UUID(), name: "")
+        let newChild = Child(id: UUID(), name: "", age: nil)
         childData.append(newChild)
         view?.reloadTable()
     }
@@ -49,19 +55,33 @@ final class PersonalInfoPresenterImp: PersonalInfoPresenter {
         childData[index].age = age
     }
     
+    func alertAddedMaxChild() {
+        let alert = UIAlertController(
+            title: R.string.AlertController.mainTitle,
+            message: R.string.AlertController.messageText,
+            preferredStyle: .alert
+        )
+        
+        let actionButton = UIAlertAction(title: R.string.AlertController.buttonTitle, style: .default)
+        
+        alert.addAction(actionButton)
+        
+        view?.present(alert, animated: true)
+    }
+    
     func showClearActionSheet() {
         let actionSheet = UIAlertController(
-            title: "Очистить",
-            message: "Вы уверены, что хотите удалить все данные?",
+            title: R.string.ActionSheet.title(for: .mainButtonTitle),
+            message: R.string.ActionSheet.messageText,
             preferredStyle: .actionSheet
             )
 
-        let clearAction = UIAlertAction(title: "Сбросить данные", style: .destructive) { [weak self] _ in
+        let clearAction = UIAlertAction(title: R.string.ActionSheet.title(for: .clearAll), style: .destructive) { [weak self] _ in
             self?.childData.removeAll()
             self?.view?.reloadTable()
         }
 
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+        let cancelAction = UIAlertAction(title: R.string.ActionSheet.title(for: .cancel), style: .cancel)
 
         actionSheet.addAction(clearAction)
         actionSheet.addAction(cancelAction)

@@ -9,6 +9,8 @@ import UIKit
 
 final class PersonalInfoViewController: UIViewController {
     
+    private var presenter: PersonalInfoPresenter!
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.estimatedRowHeight = 100
@@ -17,8 +19,6 @@ final class PersonalInfoViewController: UIViewController {
         
         return tableView
     }()
-    
-    private var presenter: PersonalInfoPresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +39,7 @@ final class PersonalInfoViewController: UIViewController {
 
 }
 
+//MARK: UITableViewDelegate && UITableViewDataSource
 extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -85,7 +86,6 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
                   
                 if let indexPath = tableView.indexPath(for: cell) {
                     self.presenter.removeChild(at: indexPath.row)
-                    print("Удален \(indexPath.row) ребенок")
                 }
             }
             
@@ -148,6 +148,29 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
         )
         return footerView
     }
+}
+
+//MARK: Helpers View adn Table methods
+extension PersonalInfoViewController {
+    
+    func setupViews() {
+        view.addSubview(tableView)
+    }
+    
+    func layoutConstraints() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    func configureAppearance() {
+        tableView.backgroundColor = .white
+    }
     
     func reloadTable() {
         tableView.reloadSections([1], with: .automatic)
@@ -174,27 +197,5 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
         }) { _ in
             footerView.isHidden = isHidden
         }
-    }
-}
-
-extension PersonalInfoViewController {
-    
-    func setupViews() {
-        view.addSubview(tableView)
-    }
-    
-    func layoutConstraints() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
-    
-    func configureAppearance() {
-        tableView.backgroundColor = .white
     }
 }
