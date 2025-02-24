@@ -14,6 +14,9 @@ final class ChildInfoCellView: UITableViewCell {
     let nameTextField = CustomInfoTextField()
     let ageTextField = CustomInfoTextField()
     
+    var onNameChanged: ((String) -> Void)?
+    var onAgeChanged: ((Int?) -> Void)?
+    
     private let deleteButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(R.string.cell.deleteButton, for: .normal)
@@ -54,16 +57,25 @@ final class ChildInfoCellView: UITableViewCell {
         ageTextField.inputType = .number
 
         deleteButton.addTarget(self, action: #selector(deleteTapped), for: .touchUpInside)
-        ageTextField.addTarget(self, action: #selector(ageTextFieldTapped), for: .touchUpInside)
     }
     
     func configure(with child: Child) {
         nameTextField.text = child.name
-        ageTextField.text = String(child.age ?? 0)
+        ageTextField.text = child.age != nil ? "\(child.age!)" : ""
+
+        nameTextField.addTarget(self, action: #selector(nameChanged), for: .editingChanged)
+        ageTextField.addTarget(self, action: #selector(ageChanged), for: .editingChanged)
     }
-    
-    @objc private func ageTextFieldTapped() {
-        
+
+    @objc 
+    private func nameChanged() {
+        onNameChanged?(nameTextField.text ?? "")
+    }
+
+    @objc 
+    private func ageChanged() {
+        let ageValue = Int(ageTextField.text ?? "")
+        onAgeChanged?(ageValue)
     }
    
     @objc private func deleteTapped() {

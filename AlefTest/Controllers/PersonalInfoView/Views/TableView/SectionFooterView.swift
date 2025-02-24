@@ -39,7 +39,6 @@ extension SectionFooterView {
     private func setupViews() {
         addSubview(clearButton)
         clearButton.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
-        print("Целевое действие добавлено к кнопке")
         clearButton.isUserInteractionEnabled = true
     }
     
@@ -54,7 +53,7 @@ extension SectionFooterView {
         ])
         
         clearButton.layoutIfNeeded()
-        print("Constraints кнопки применены")
+        print("Констрейнты кнопки применены")
     }
     
     private func configureAppearance() {
