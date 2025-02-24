@@ -9,7 +9,7 @@ import UIKit
 
 final class PersonalInfoViewController: UIViewController {
     
-    private var childData: [(name: String, age: Int)] = []
+    private var childData: [Child] = []
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -45,33 +45,44 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        section == 0 ? 1 : childData.count
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return childData.count
+            
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: PersonalInfoCellView.identifier, 
+            let cell = tableView.dequeueReusableCell(withIdentifier: PersonalInfoCellView.identifier,
                                                      for: indexPath) as! PersonalInfoCellView
             return cell
             
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ChildInfoCellView.identifier, 
+            let cell = tableView.dequeueReusableCell(withIdentifier: ChildInfoCellView.identifier,
                                                      for: indexPath) as! ChildInfoCellView
+            
+            let child = childData[indexPath.row]
+            cell.configure(with: child)
             
             cell.deleteAction = { [weak self, weak tableView] in
                 guard let self = self, let tableView = tableView else { return }
-                        
-                if let cellIndexPath = tableView.indexPath(for: cell) {
-                    self.childData.remove(at: cellIndexPath.row)
-                        
-                    tableView.deleteRows(at: [cellIndexPath], with: .automatic)
+                  
+                if let indexPath = tableView.indexPath(for: cell) {
+                    self.removeChild(at: indexPath.row)
+                    print("Удален \(indexPath.row)")
                 }
             }
+            
             return cell
             
-        default: 
+        default:
             break
         }
         
@@ -79,30 +90,30 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 1 {
+        switch section {
+        case 0:
+            return SectionHeaderView(text: R.string.cell.header.personalInfo, showButton: false)
+            
+        case 1:
             let header = SectionHeaderView(
-                    text: R.string.cell.header.childInfo,
-                    showButton: true,
-                    addAction: { [weak self] in
-                        guard let self = self else { return }
-                        print("Детей максимальное количество")
-
-                        if self.childData.count < 5 {
-                            self.childData.append(("", 0))
-                            print("Добавлено: \(self.childData.count) детей")
-                            self.tableView.reloadData()
-                        }
-                    }
-                )
-                return header
-            }
-        return SectionHeaderView(text: R.string.cell.header.personalInfo, showButton: false)
+                text: R.string.cell.header.childInfo,
+                showButton: true,
+                addAction: { [weak self] in
+                    guard let self = self else { return }
+                    addChild()
+                }
+            )
+            return header
+        
+        default:
+            return SectionHeaderView(text: "", showButton: false)
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-             cell.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         case 1:
             cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.width, bottom: 0, right: 0)
         default:
@@ -115,13 +126,70 @@ extension PersonalInfoViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        section == 1 ? 16 : 0
+        section == 1 ? 60 : 60
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        section == 1 ? UIView() : nil
+        guard section == 1, !childData.isEmpty else { return nil }
+
+        let footerView = SectionFooterView(
+            clearAction: { [weak self] in
+                self?.showActionSheet()
+            }
+        )
+        return footerView
     }
     
+    private func addChild() {
+        print("Добавлен \(childData.count) детей")
+        if self.childData.count < 5 {
+            let newChild = Child(name: "")
+            self.childData.append(newChild)
+             
+            tableView.beginUpdates()
+            tableView.insertRows(at: [IndexPath(row: childData.count - 1, section: 1)], with: .automatic)
+            tableView.endUpdates()
+        } else {
+            print("Детей максимальное количество")
+        }
+    }
+    
+    private func removeChild(at index: Int) {
+        guard index >= 0 && index < childData.count else { return }
+
+        childData.remove(at: index)
+
+        if childData.isEmpty {
+            tableView.reloadSections([1], with: .automatic)  // Обновляем footer
+        } else {
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [IndexPath(row: index, section: 1)], with: .automatic)
+            tableView.endUpdates()
+        }
+    }
+    
+    @objc
+    private func showActionSheet() {
+        guard let viewController = self.view.parentViewController else { return }
+
+        let actionSheet = UIAlertController(
+            title: "Очистить данные",
+            message: "Вы уверены, что хотите удалить все записи",
+            preferredStyle: .actionSheet
+        )
+
+        let clearAction = UIAlertAction(title: "Сбросить данные", style: .destructive) { _ in
+            self.childData.removeAll()
+            self.tableView.reloadSections([1], with: .automatic)
+        }
+
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+
+        actionSheet.addAction(clearAction)
+        actionSheet.addAction(cancelAction)
+
+        viewController.present(actionSheet, animated: true)
+    }
 }
 
 extension PersonalInfoViewController {
@@ -145,4 +213,3 @@ extension PersonalInfoViewController {
         tableView.backgroundColor = .white
     }
 }
-

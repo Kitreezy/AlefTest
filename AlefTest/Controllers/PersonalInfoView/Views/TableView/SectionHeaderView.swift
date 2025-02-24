@@ -10,7 +10,7 @@ import UIKit
 final class SectionHeaderView: UIView {
     
     private let titleLabel = UILabel()
-    private let addButton = UIButton(type: .system)
+    private let addButton = CustomButtonView(type: .addChild)
     
     private var addAction: (() -> Void)?
     
@@ -38,8 +38,6 @@ final class SectionHeaderView: UIView {
     
     private func checkButton(showButton: Bool) {
         if showButton {
-            addButton.setTitle("+ Добавить ребенка", for: .normal)
-            addButton.alpha = 0.8
             addButton.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
             
             addSubview(addButton)
